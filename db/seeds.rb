@@ -2,6 +2,12 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-#
+#   
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+#   Major.create(:name => 'Daley', :city => cities.first)
+
+   	Tag.new(:name => "food").save
+   	Tag.new(:name => "clothes").save
+   	Tag.new(:name => "volunteer_work").save
+   	Tag.new(:name => "money").save
+   	Tag.new(:name => "others").save
