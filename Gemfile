@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '2.3.8'
+gem 'rails', '3.0.0'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'friendly_id'
 gem 'babosa'
@@ -13,4 +13,3 @@ group :test do
   gem 'rcov'
   gem 'ruby-prof'
 end
-

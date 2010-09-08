@@ -121,6 +121,7 @@ class OrganizationsControllerTest < ActionController::TestCase
   
   should "not be able to edit organization when password dont match" do
     get :ajax_edit, :id => organizations(:wwf).id, :password => "wrong_pass"
+     assert_response :sucess
     assert :status => :failure
   end
   

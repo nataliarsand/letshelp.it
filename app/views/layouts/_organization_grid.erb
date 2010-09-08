@@ -1,10 +1,10 @@
 <div id="organizations">
-  <% @organizations.each_with_index do |organization, i| %>
-    <% link_to organization do %>
+  <%= @organizations.each_with_index do |organization, i| %>
+    <%= link_to organization do %>
       <div class="organization <%= i.even? ? 'left' : 'right'%>">
-        <h2><%=h organization.name %></h2>
-        <h3><%=h organization.city %></h3>
-        <p><%=h organization.needs %></p>
+        <h2><%= organization.name %></h2>
+        <h3><%= organization.city %></h3>
+        <p><%= organization.needs %></p>
       </div>
     <% end %>
   <% end %>
