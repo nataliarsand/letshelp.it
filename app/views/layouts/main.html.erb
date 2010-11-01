@@ -1,87 +1,86 @@
 <!DOCTYPE HTML>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta name="author" content="ThoughtWorks" />
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= t "title" %></title>
-  <link href='http://fonts.googleapis.com/css?family=Reenie+Beanie' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Cantarell:regular,italic,bold' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag 'style' %>
-  <%= stylesheet_link_tag 'niceforms-default' %>
-  <!--[if lte IE 8]>
-    <script src="/javascripts/html5.js"></script>
-  <![endif]-->
-</head>
-<body>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title><%= t "title" %></title>
+    <link href='http://fonts.googleapis.com/css?family=Reenie+Beanie' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cantarell:regular,italic,bold' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag 'style' %>
+    <%= javascript_include_tag 'jquery' %>
+    <!--[if lte IE 8]>
+      <script src="/javascripts/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body id="body_tag" lang="<%= I18n.locale.to_s %>">
     <div class="bg">
-		<%= image_tag("bg.jpg", :alt => "background") %>
-	</div>		
-    
+      <%= image_tag("bg.jpg", :alt => "background") %>
+    </div>    
+
     <header>
-    	<nav>
-    		<div class="wrapper">
-    			<ul>
-    				<li><%= link_to 'Home', '/' %></li>
-    				<li><%= link_to t('about'), about_url %></li>
-    				<li class="forum"><%= link_to t('forum'), 'http://letshelpit.uservoice.com/forums/72267-general' %></li>
-					<li class="twitter"><%= link_to 'Twitter', 'http://www.twitter.com/letshelpit' %></li>
-					<li class="flickr"><a href="#">Flickr</a></li>
-				</ul>
-	    		<div class="locale">
-					<%= generate_locale_menu_html if controller.action_name == "index" %>
-				</div>
-				
-				<div class="clear"></div>
-    		</div>
-    	</nav>
-	    <div class="wrapper">
-			<h1 id="logo">
-				<a href="/"></a>
-			</h1>
-			<div class="slogan"><%= t("subtitle") %></div>
-			<div class="clear"></div>
-		</div>
-	</header>
-	<section id="body">
-		<div class="wrapper helpWithAndFindOrg">
-			<h2><%= t("howto_help") %></h2>
-			<form id="search_form" name="search_form" method="get" action="/organizations/search">
-				<div id="search_tags" class="helpWith">
-					<% @tags.each do |tag| %>
-					<label>
-						<input type="checkbox" value="<%=tag.id%>" name="tag_ids[]" <%= ( (params[:tag_ids].member? tag.id.to_s) ? "checked":"") if not params[:tag_ids].nil? %> /> <%= t("tag.#{tag.name}") %>
-					</label>
-					<% end %>
-				</div>
-				<div class="find">
-					<%
-						
-					%>
-					<input type="text" name="q" id="search_query" 
-						placeholder="<%= t("whereto_help") %>" 
-						class="cityOrOrg" 
-						
-						value="<%= t("whereto_help") %>"
-						onfocus="if (this.value == '<%= t("whereto_help").gsub "'", "\\\\'" %>') this.value = '';" 
-						onblur="if (this.value == '') this.value = '<%= t("whereto_help").gsub "'", "\\\\'" %>';" />
-					<input type="submit" id="search" value="<%= t("find") %>" />
-				</div>
-			</form>
-		</div>
+      <nav>
+        <div class="wrapper">
+          <ul>
+            <li><%= link_to 'Home', :controller => "home", :action => "index" %></li>
+            <li><%= link_to t('about'), about_url %></li>
+            <li class="forum"><%= link_to t('forum'), "http://letshelpit.uservoice.com/forums/72267-general?lang=#{I18n.locale.to_s.gsub('-', '_')}" %></li>
+            <li class="twitter"><%= link_to 'Twitter', 'http://www.twitter.com/letshelpit' %></li>
+            <li class="flickr"><%= link_to 'Flickr', "http://www.flickr.com" %></li>
+          </ul>
+          <div class="locale">
+            <%= generate_locale_menu_html.html_safe %>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </nav>
+      
+      <div class="wrapper">
+        <h1 id="logo"><a href="/"></a></h1>
+        <div class="slogan"><%= t("subtitle") %></div>
+        <div class="clear"></div>
+      </div>
+    </header>
 
-		<%= flash[:notice] %>
-		<%= yield %>
-	</section>	
-	<footer>
-		<div class="wrapper featuredOrg">
-		<small class="letsHelpIt"><strong><%= link_to ('Let\' Help it'), about_url  %></strong>.</small> <small class="free"><%= t('rights')%>. <%= link_to t('free_code'), 'http://github.com/thoughtworks/letshelp.it' %>.</small>
-		<div class="clear"></div>
-		</div>
-	</footer>
+    <section id="body">
+      <div class="wrapper helpWithAndFindOrg">
+        <h2><%= t("howto_help") %></h2>
+        <form id="search_form" name="search_form" method="get" action="/organizations/search">
+          <div id="search_tags" class="helpWith">
+            <% @tags.each do |tag| %>
+              <label>
+                <input type="checkbox" value="<%=tag.id%>" name="tag_ids[]" <%= ( (params[:tag_ids].member? tag.id.to_s) ? "checked":"") if not params[:tag_ids].nil? %> /> <%= t("tag.#{tag.name}") %>
+              </label>
+            <% end %>
+          </div>
+          <div class="find">
+            <input id="search_query" name="q" type="text" class="cityOrOrg" placeholder="<%= t('whereto_help') %>"
+              value="<%= if params[:q].nil? then t('whereto_help') else params[:q] end %>"
+              onfocus="if (this.value == '<%= escape_javascript(t('whereto_help')) %>') this.value = '';"
+              onblur="if (this.value == '') this.value = '<%= escape_javascript(t('whereto_help')) %>';"
+            />
+            <input id="search" type="submit" value="<%= t('find') %>" />
+          </div>
+        </form>
+      </div>
 
-  <%= javascript_include_tag 'uservoice' %>
-  <%= javascript_include_tag 'analytics' %>
-  <%= javascript_include_tag 'niceforms' %>
+      <%= "<h4 class=\"successfulUpdated\">#{flash[:notice]}</h4>".html_safe if !flash[:notice].nil? %>
+      <%= yield %>
+
+      <div class="wrapper actions">
+        <a href="#">Share this idea!</a>
+        <%= link_to t("organization.register"), new_organization_path, :class => "link" %>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrapper featuredOrg">
+        <small class="letsHelpIt"><strong><%= link_to ('Let\'s Help it'), about_url  %></strong></small>
+        <small class="free"><%= t('rights')%>. <%= link_to t('free_code'), 'http://github.com/thoughtworks/letshelp.it' %>.</small>
+        <div class="clear"></div>
+      </div>
+    </footer>
+
+    <%= javascript_include_tag 'uservoice' %>
+    <%= javascript_include_tag 'analytics' %>
   </body>
 </html>

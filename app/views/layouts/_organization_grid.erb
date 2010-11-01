@@ -1,23 +1,12 @@
 <div class="wrapper featuredOrg">
-	<%
-	
-	%>
-	
-  <% @organizations.each do |organization|
-   %>
-    <% link_to organization do %>
-    <div class="bucket <%= cycle('left','normal','right') %>">
-        <h3><%=h organization.name %></h3>
-        <h4><%=h organization.city %> / <%=h organization.country %></h4>
-        <p><%=h truncate(organization.needs, 340, "...") %></p>
-    </div>
+  <% @organizations.each do |organization| %>
+    <%= link_to organization do %>
+      <div class="bucket <%= cycle('left','normal','right') %>">
+        <h3><%= organization.name %></h3>
+        <h4><%= organization.city %> / <%= organization.country %></h4>
+        <p><%= truncate_html(RedCloth.new(organization.needs).to_html, :length => 340, :word_boundary => false).html_safe %></p>
+      </div>
     <% end %>
   <% end %>
   <div class="clear"></div>
-</div>
-
-<div class="wrapper actions">
-	<a href="#">Share this idea!</a>
-	<%= link_to t("organization.register"), new_organization_path, :class => "link" %>
-        
 </div>
