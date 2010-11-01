@@ -40,7 +40,13 @@
         <div class="clear"></div>
       </div>
     </header>
-
+	
+          <div class="wrapper actions">
+        <a href="#">Share this idea!</a>
+        <%= link_to t("organization.register"), new_organization_path, :class => "link" %>
+        <div class="clear"></div>
+      </div>
+      
     <section id="body">
       <div class="wrapper helpWithAndFindOrg">
         <h2><%= t("howto_help") %></h2>
@@ -65,11 +71,6 @@
 
       <%= "<h4 class=\"successfulUpdated\">#{flash[:notice]}</h4>".html_safe if !flash[:notice].nil? %>
       <%= yield %>
-
-      <div class="wrapper actions">
-        <a href="#">Share this idea!</a>
-        <%= link_to t("organization.register"), new_organization_path, :class => "link" %>
-      </div>
     </section>
 
     <footer>
