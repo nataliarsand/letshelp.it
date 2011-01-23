@@ -9,7 +9,7 @@ html, body, * {
 }
 
 body {
-  background: white url(/images/bg.gif) repeat;
+  background: #eaeaea url(/images/bg.gif) repeat;
   color: white;
   font: normal normal normal 13px/1.4em 'Trebuchet MS', Arial, sans-serif;
   font-weight: normal;
@@ -150,15 +150,18 @@ header nav li a:hover {
   background: none;
 }
 
-#body .wrapper.helpWithAndFindOrg {
+#body .helpWithAndFindOrg {
   background-color: #74557F;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+  width: 720px;
+  padding: 20px;
+  float: left;
 }
 
-#body .wrapper.helpWithAndFindOrg h2, h3 {
-  font-size: 3.1em;
+#body .helpWithAndFindOrg h2, h3 {
+  font-size: 2.8em;
   line-height: 1em;
   font-family: "Harabara", Trebuchet MS, Arial, sans-serif;
   letter-spacing: 0.15em;
@@ -217,7 +220,7 @@ input.cityOrOrg, input#search {
 }
 
 input.cityOrOrg {
-  width: 760px;
+  width: 540px;
 }
 
 input#search {
@@ -227,7 +230,7 @@ input#search {
 
 input#search:hover {
   cursor: pointer;
-  background: #BBF968;
+  background: #ccc !important;
 }
 
 #search_help_message {
@@ -279,17 +282,31 @@ input#search:hover {
 
 /* actions */
 
+.actions {
+	padding-top: 0;
+	float: left;
+	margin-top: 15px;
+}
+
 .actions a {
-  color: #FFF;
-  background: #74557F;
-  padding: 5px 10px;
+  color: #333;
+  background: #BBF968 url(../images/cadastrar.png) no-repeat top center;
+  padding: 70px 10px 15px 10px;
+  width: 140px;
   float: right;
   margin-left: 20px;
   font-size: 1.5em;
+  text-align: center;
 }
 
 .actions a:hover {
-  background: #7f5d8b;
+	background-color: #a8e05e;
+}
+
+.actions a::after {
+
+content: ' »';
+
 }
 
 /* footer */
@@ -307,7 +324,7 @@ footer a:hover {
   font-weight: bold;
 }
 
-small.letsHelpIt {
+small.letsWIt {
   float: left;
 }
 
@@ -340,6 +357,10 @@ small.free {
   padding: 20px;
   background: #F5F5F5;
   border-bottom: 3px solid #F9F9F9;  
+}
+
+.orgDescription h3 {
+	font-size: 2em;
 }
 
 .orgDescription h3 div {
